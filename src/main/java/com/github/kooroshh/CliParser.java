@@ -1,11 +1,8 @@
 package com.github.kooroshh;
 
-import javafx.util.Pair;
 import org.apache.commons.cli.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class CliParser {
     public static final String CONFIG = "config";
