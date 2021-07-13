@@ -79,9 +79,9 @@ public class PingProcess {
             return;
         }
         if(line.contains("no answer yet") || line.contains("Request timed out")) {
-            mPingCallback.OnPingResult(null,"Request Timed Out");
+            mPingCallback.OnPingResult(null,1);
         }else if(line.contains("Name or service not known") || line.contains("Ping request could not find host")) {
-            mPingCallback.OnPingResult(null,"DNS Error");
+            mPingCallback.OnPingResult(null,2);
         }
         Pattern patternWin = Pattern.compile("Reply from (.*): bytes=(.*) time=(.*)ms TTL=(.*)");
         Pattern patternNix = Pattern.compile("(.*) bytes from (.*): icmp_seq=(.*) ttl=(.*) time=(.*) ms");
@@ -91,12 +91,12 @@ public class PingProcess {
             //NIX
             String time = matcherNix.group(4);
             String ttl = matcherNix.group(5);
-            mPingCallback.OnPingResult(new PingResult(mAddress,Float.parseFloat(time),Integer.parseInt(ttl)),null);
+            mPingCallback.OnPingResult(new PingResult(mAddress,Float.parseFloat(time),Integer.parseInt(ttl)),0);
         }else if (matcherWin.matches()) {
             //WIN
             String time = matcherWin.group(3);
             String ttl = matcherWin.group(4);
-            mPingCallback.OnPingResult(new PingResult(mAddress,Float.parseFloat(time),Integer.parseInt(ttl)),null);
+            mPingCallback.OnPingResult(new PingResult(mAddress,Float.parseFloat(time),Integer.parseInt(ttl)),0);
         }
     }
 }
