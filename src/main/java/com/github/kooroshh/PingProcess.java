@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,13 +16,13 @@ public class PingProcess {
     String mAddress;
     public PingProcess(String hostname){
         mAddress = hostname;
-        if (HostInfo.getHostType().equals("windows")){
+        if (HostInfo.getHostType().toLowerCase(Locale.ROOT).contains("windows")){
             mProcessArgs.add(System.getenv("WINDIR") + "\\system32\\" + "ping.exe");
             mProcessArgs.add(hostname);
             mProcessArgs.add("-t"); // ping 4 ever
             mProcessArgs.add("-w");// timeout
             mProcessArgs.add("700");// timeout
-        }else if (HostInfo.getHostType().equals("linux")){
+        }else if (HostInfo.getHostType().toLowerCase(Locale.ROOT).contains("linux")){
             mProcessArgs.add("/usr/bin/ping");
             mProcessArgs.add(hostname);
             mProcessArgs.add("-O"); // ping 4 ever
