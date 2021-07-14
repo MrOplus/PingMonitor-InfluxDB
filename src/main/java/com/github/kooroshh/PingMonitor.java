@@ -1,7 +1,9 @@
 package com.github.kooroshh;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PingMonitor {
     public static void main(String[] args) throws IOException {
@@ -12,6 +14,7 @@ public class PingMonitor {
                 appConfig.influx.secret,
                 appConfig.influx.bucket,
                 appConfig.influx.org);
+        List<PingProcessThread> availableThreads = new ArrayList<>();
         for (String host : appConfig.hosts) {
             PingProcessThread thread = new PingProcessThread(host);
             thread.setPingCallback((pingResult,error) -> {
@@ -23,7 +26,22 @@ public class PingMonitor {
                     helper.sendData(thread.getHostname(),error);
                 }
             });
+            availableThreads.add(thread);
             thread.start();
         }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            for (PingProcessThread thread :
+                    availableThreads) {
+                if(!thread.isAlive())
+                    continue;
+                thread.stopProcess();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
+
     }
 }

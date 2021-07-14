@@ -5,7 +5,7 @@ public class PingProcessThread extends Thread {
         return mHostname;
     }
 
-    private String mHostname;
+    private final String mHostname;
     private final PingProcess mProcess;
     private IPingResult mCallback = null;
     public void setPingCallback(IPingResult callback){
@@ -27,5 +27,8 @@ public class PingProcessThread extends Thread {
         }catch (Exception exception){
             exception.printStackTrace();
         }
+    }
+    public void stopProcess(){
+        mProcess.stop();
     }
 }

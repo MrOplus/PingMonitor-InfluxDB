@@ -99,4 +99,8 @@ public class PingProcess {
             mPingCallback.OnPingResult(new PingResult(mAddress,Float.parseFloat(time),Integer.parseInt(ttl)),0);
         }
     }
+    public void stop(){
+        if(mProcess != null )
+        mProcess.destroy();
+    }
 }

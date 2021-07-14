@@ -12,21 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class InfluxDBHelper {
-    private String mToken = "";
-    private String mBucket = "";
-    private String mOrganization = "";
-    private String mUrl = "";
-    private volatile List<Point> buffer = new ArrayList<>();
+    private final List<Point> buffer = new ArrayList<>();
     InfluxDBClient mClient;
     Timer timer = new Timer("TimerThread");
     public InfluxDBHelper(String url, String token , String bucket , String organization){
-        this.mUrl = url;
-        this.mToken = token;
-        this.mBucket = bucket;
-        this.mOrganization = organization;
         mClient = InfluxDBClientFactory.create(url, token.toCharArray(),organization,bucket);
         scheduleTimer();
     }
