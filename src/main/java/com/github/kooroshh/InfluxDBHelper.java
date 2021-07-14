@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class InfluxDBHelper {
     private String mToken = "";
@@ -47,7 +48,7 @@ public class InfluxDBHelper {
                 .addField("error",0)
 
                 .time(Instant.now(), WritePrecision.NS);
-        buffer.add(point);
+        push(point);
     }
     public void sendData(String address , int err){
         Point point = Point
@@ -57,7 +58,12 @@ public class InfluxDBHelper {
                 .addField("ttl",-1)
                 .addField("error",err)
                 .time(Instant.now(), WritePrecision.NS);
-        buffer.add(point);
+        push(point);
+    }
+    private synchronized void push(Point point){
+        synchronized (buffer){
+            buffer.add(point);
+        }
     }
     private synchronized void flush(){
         synchronized (buffer) {
