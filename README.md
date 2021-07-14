@@ -33,3 +33,10 @@ java -jar PingMonitor.jar -c config.json
 ### Depnds on :
 <a href="https://commons.apache.org/proper/commons-cli">Apache Commons CLI</a>  
 <a href="https://github.com/google/gson">GSON</a>  
+
+### Tested On : 
+* Windows 11
+* Windows 10 (JDK 8 , JDK 11, JDK 15)
+* Ubuntu 20 (Open 11)
+* Ubuntu WSL (JDK 11)
+* CentOS 7 (JDK 11)
