@@ -89,8 +89,8 @@ public class PingProcess {
         Matcher matcherNix = patternNix.matcher(line);
         if(matcherNix.matches()){
             //NIX
-            String time = matcherNix.group(4);
-            String ttl = matcherNix.group(5);
+            String time = matcherNix.group(5);
+            String ttl = matcherNix.group(4);
             mPingCallback.OnPingResult(new PingResult(mAddress,Float.parseFloat(time),Integer.parseInt(ttl)),0);
         }else if (matcherWin.matches()) {
             //WIN
