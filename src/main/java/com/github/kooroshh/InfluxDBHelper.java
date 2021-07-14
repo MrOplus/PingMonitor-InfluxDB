@@ -66,4 +66,7 @@ public class InfluxDBHelper {
             }
         }
     }
+    public void close(){
+        mClient.close();
+    }
 }

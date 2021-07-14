@@ -41,7 +41,14 @@ public class PingMonitor {
                     e.printStackTrace();
                 }
             }
+            helper.close();
         }));
-
+        for(Thread thread : availableThreads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                //what happened ?!
+            }
+        }
     }
 }
