@@ -1,5 +1,5 @@
 # PingMonitor for InfluxDB v2
-
+![InfluxDB v2 Panel](https://github.com/kooroshh/PingMonitor-InfluxDB/blob/master/.assets/Screenshot.png?raw=true)
 ### Configuration (Caution : CASE SENSITIVE): 
 ```
 {
