@@ -83,7 +83,7 @@ public class PingProcess {
         }else if(line.contains("Name or service not known") || line.contains("Ping request could not find host")) {
             mPingCallback.OnPingResult(null,2);
         }
-        Pattern patternWin = Pattern.compile("Reply from (.*): bytes=(.*) time=(.*)ms TTL=(.*)");
+        Pattern patternWin = Pattern.compile("Reply from (.*): bytes=(.*) time[=<](.*)ms TTL=(.*)");
         Pattern patternNix = Pattern.compile("(.*) bytes from (.*): icmp_seq=(.*) ttl=(.*) time=(.*) ms");
         Matcher matcherWin = patternWin.matcher(line);
         Matcher matcherNix = patternNix.matcher(line);
